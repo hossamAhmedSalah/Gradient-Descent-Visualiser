@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Descent Visualization</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+    <header class="header-branding">
+        <div class="logo-container">
+            <img src="./logo ieee (1).png" alt="IEEE Logo" id="ieeeLogo" class="logo-light">
+            <img src="./Logo 2 white.png" alt="IEEE Logo Dark" id="ieeeLogoDark" class="logo-dark" style="display: none;">
+        </div>
+        <div class="social-links">
+            <a href="https://github.com/IEEE-FCIH-SB" target="_blank" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.facebook.com/IEEE.FCIH" target="_blank" title="Facebook Page">
+                <i class="fab fa-facebook"></i>
+            </a>
+        </div>
+    </header>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
+    
+    <div class="dashboard">
+        <main class="visualization-area">
+            <div class="viz-container">
+                <canvas id="plotCanvas"></canvas>
+                <canvas id="plot3D" style="display: none;"></canvas>
+                <button id="toggleDimension" class="dimension-toggle">
+                    <i class="fas fa-cube"></i>
+                    <span>Switch to 3D</span>
+                </button>
+            </div>
+            <div class="logs-panel">
+                <div class="logs-header">
+                    <h3>Iteration Logs</h3>
+                    <button id="exportBtn" class="export-btn" title="Export logs to PDF">
+                        <i class="fas fa-file-export"></i>
+                    </button>
+                </div>
+                <div id="logsContainer"></div>
+            </div>
+        </main>
+        <aside class="control-sidebar">
+            <h1>Gradient Descent</h1>
+            
+            <div class="input-group">
+                <label for="functionInput">Function to Optimize</label>
+                <div class="input-with-icon">
+                    <input type="text" 
+                           id="functionInput" 
+                           value="Math.pow(x, 2)" 
+                           placeholder="e.g., Math.pow(x, 2) or (x, y) => x*x + y*y"
+                           autocomplete="off"
+                           spellcheck="false">
+                    <i class="fas fa-play-circle" id="initializeBtn" title="Run Gradient Descent"></i>
+                </div>
+                <small class="input-hint">Use JavaScript Math syntax. For 3D: (x, y) => expression</small>
+            </div>
+
+            <div class="input-group">
+                <label for="learningRate">Learning Rate (α)</label>
+                <input type="number" 
+                       id="learningRate" 
+                       value="0.1" 
+                       step="0.01" 
+                       min="0.01" 
+                       max="0.99"
+                       title="Value must be between 0 and 1">
+                <small class="input-hint">Value must be between 0 and 1</small>
+            </div>
+
+            <div class="input-group">
+                <label for="iterations">Iterations</label>
+                <input type="number" id="iterations" value="10" min="1" max="100">
+            </div>
+
+            <div class="button-group">
+                <button id="playPauseBtn" title="Play/Pause Animation">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="resetBtn" title="Reset Simulation">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button id="stepBtn" title="Step Forward">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+
+            <div class="info-panel">
+                <h3>Current Status</h3>
+                <p>X Position: <span id="currentX" class="info-value">0</span></p>
+                <p>Y Value: <span id="currentY" class="info-value">0</span></p>
+                <p>Step: <span id="currentStep" class="info-value">0</span></p>
+            </div>
+        </aside>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

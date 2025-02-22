@@ -1,0 +1,518 @@
+:root {
+    --primary-color: #2196F3;
+    --secondary-color: #4CAF50;
+    --background: #ffffff;
+    --surface: #f8f9fa;
+    --text: #333333;
+    --border: #e0e0e0;
+    --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --button-hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    --button-active-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --primary-color: #90CAF9;
+    --secondary-color: #81C784;
+    --background: #1a1a1a;
+    --surface: #2d2d2d;
+    --text: #ffffff;
+    --border: #404040;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+    color: var(--text);
+    transition: all 0.3s ease;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 320px; /* Narrower control panel */
+    gap: 1.5rem;
+    padding: 1.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    min-height: 85vh;
+    margin-top: 1rem;
+}
+
+.control-sidebar {
+    position: sticky; /* Make controls stick while scrolling */
+    top: 2rem;
+    background: linear-gradient(135deg, 
+        color-mix(in srgb, var(--primary-color) 5%, var(--surface)), 
+        var(--surface)
+    );
+    border-radius: 20px; /* Larger border radius */
+    padding: 1.5rem; /* More padding */
+    font-size: 0.9rem; /* Slightly smaller base font size */
+    box-shadow: 
+        0 8px 24px rgba(33, 150, 243, 0.1),
+        0 2px 4px rgba(33, 150, 243, 0.05); /* Dual shadow for depth */
+    border: 1px solid rgba(33, 150, 243, 0.15);
+    height: fit-content;
+    backdrop-filter: blur(10px);
+}
+
+.control-sidebar h1 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem; /* More spacing after title */
+    font-size: 1.5rem;
+    border-bottom: 2px solid rgba(33, 150, 243, 0.2);
+    padding-bottom: 0.75rem;
+    letter-spacing: -0.5px;
+}
+
+.visualization-area {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1.25rem; /* More padding */
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.05),
+        0 1px 3px rgba(0, 0, 0, 0.1); /* Dual shadow */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.input-group {
+    background: rgba(255, 255, 255, 0.07);
+    padding: 1.25rem;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgba(33, 150, 243, 0.1);
+    box-sizing: border-box; /* Add this to include padding in width calculation */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--primary-color) 70%, var(--text)); /* Muted label color */
+}
+
+.input-group input {
+    width: calc(100% - 1.6rem); /* Account for padding */
+    padding: 0.6rem 0.8rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--background);
+    color: var(--text);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+    margin: 0.25rem 0;
+    font-size: 1rem;
+    box-sizing: border-box; /* Add this to include padding in width calculation */
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.15); /* Slightly stronger focus shadow */
+}
+
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: var(--background);
+    border-radius: 8px;
+    padding: 0.5rem;
+    border: 1px solid rgba(33, 150, 243, 0.2);
+    margin: 0.5rem 0;
+    box-sizing: border-box; /* Add this to include padding in width calculation */
+}
+
+.input-with-icon input {
+    flex: 1;
+    width: auto; /* Override the width from .input-group input */
+    margin: 0; /* Remove margin since the container handles spacing */
+    padding: 0.5rem;
+}
+
+.input-with-icon i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.input-with-icon i:hover {
+    transform: scale(1.1);
+}
+
+.input-hint {
+    display: block;
+    color: var(--text);
+    opacity: 0.7;
+    font-size: 0.75rem;
+    margin-top: 0.35rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    background: rgba(33, 150, 243, 0.08);
+}
+
+input:invalid {
+    border-color: #ff4444;
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* All buttons in one row */
+    gap: 0.75rem; /* More space between buttons */
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin: 1rem 0; /* More vertical spacing */
+    border: 1px solid rgba(33, 150, 243, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+}
+
+.button-group button {
+    position: relative;
+    padding: 0.75rem 1rem; /* Larger buttons */
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        var(--primary-color), 
+        color-mix(in srgb, var(--primary-color) 80%, #ffffff)
+    );
+    box-shadow: var(--button-shadow);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Faster transition */
+    
+    /* Use primary color for all buttons */
+    background: linear-gradient(135deg,
+        var(--primary-color),
+        color-mix(in srgb, var(--primary-color) 80%, #ffffff)
+    );
+}
+
+.button-group button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.button-group button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--button-hover-shadow);
+}
+
+.button-group button:hover:before {
+    opacity: 1;
+}
+
+.button-group button:active {
+    transform: translateY(1px);
+    box-shadow: var(--button-active-shadow);
+}
+
+#runButton {
+    grid-column: 1 / -1;
+    font-size: 1.1rem;
+    padding: 1.1rem 2rem;
+    margin-bottom: 0.5rem;
+}
+
+#playPauseBtn {
+    /* Remove specific color */
+}
+
+#resetBtn {
+    /* Remove specific color */
+}
+
+#stepBtn {
+    /* Remove specific color */
+}
+
+.info-panel {
+    background: linear-gradient(
+        170deg,
+        rgba(33, 150, 243, 0.05),
+        rgba(33, 150, 243, 0.1)
+    );
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid rgba(33, 150, 243, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+}
+
+.info-panel h3 {
+    margin: 0 0 0.75rem 0;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.info-panel p {
+    margin: 0.5rem 0; /* More space between info items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.info-value {
+    font-family: 'Roboto Mono', monospace;
+    color: color-mix(in srgb, var(--primary-color) 90%, var(--text));
+    background: rgba(33, 150, 243, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 0.85rem;
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+    background: var(--background);
+    border-radius: 12px; /* Larger border radius */
+    margin: 0.5rem 0;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.05),
+        0 1px 3px rgba(0, 0, 0, 0.1); /* Dual shadow */
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: var(--surface);
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12); /* Enhanced shadow */
+}
+
+.logs-panel {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.logs-panel h3 {
+    color: var(--primary-color);
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.log-entry {
+    padding: 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    background: rgba(33, 150, 243, 0.05);
+    border-left: 3px solid var(--primary-color);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.85rem;
+    cursor: pointer; /* Add cursor pointer */
+    transition: all 0.2s ease; /* Smooth transition */
+}
+
+.log-entry:hover {
+    background: rgba(33, 150, 243, 0.15);
+    transform: translateX(2px);
+}
+
+.log-entry.highlight {
+    background: rgba(33, 150, 243, 0.1);
+    border-left-color: var(--secondary-color);
+}
+
+/* Add smooth scrollbar for the logs */
+.logs-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.logs-panel::-webkit-scrollbar-track {
+    background: var(--surface);
+}
+
+.logs-panel::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.logs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.logs-header h3 {
+    margin: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.export-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.export-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--button-hover-shadow);
+}
+
+.export-btn:active {
+    transform: translateY(1px);
+}
+
+@media (max-width: 1200px) {
+    .dashboard {
+        padding: 2rem;
+        grid-template-columns: 1fr 300px;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+    
+    .control-sidebar {
+        position: relative;
+        top: 0;
+        padding: 2rem 1.5rem;
+    }
+    
+    .visualization-area {
+        padding: 1.5rem;
+    }
+}
+
+[data-theme="dark"] .control-sidebar {
+    background: linear-gradient(135deg, 
+        color-mix(in srgb, var(--primary-color) 8%, var(--surface)), 
+        var(--surface)
+    );
+}
+
+.header-branding {
+    position: relative; /* Add this */
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-container img {
+    height: 32px;
+    width: auto;
+}
+
+.social-links {
+    position: absolute; /* Add this */
+    left: 50%; /* Add this */
+    transform: translateX(-50%); /* Add this */
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-left: 0; /* Remove the auto margin */
+}
+
+.social-links a {
+    color: var(--primary-color);
+    opacity: 0.7;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.social-links a:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+}
+
+/* Add new styles for dimension toggle button */
+#toggleDimension {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    background: linear-gradient(135deg, 
+        var(--primary-color), 
+        color-mix(in srgb, var(--primary-color) 80%, #ffffff)
+    );
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--button-shadow);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+}
+
+#toggleDimension:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--button-hover-shadow);
+}
+
+#toggleDimension:active {
+    transform: translateY(1px);
+    box-shadow: var(--button-active-shadow);
+}
+
+#toggleDimension i {
+    font-size: 1.1rem;
+}
+
+[data-theme="dark"] #toggleDimension {
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--primary-color) 80%, #ffffff),
+        var(--primary-color)
+    );
+}
+
+.viz-container {
+    position: relative;
+    width: 100%;
+}
